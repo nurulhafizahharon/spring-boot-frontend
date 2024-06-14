@@ -18,8 +18,10 @@ function ListUsers() {
     function refreshUsers() {
         retrieveAllUsersApi(token)
             .then((response) => {
-                console.log(response.data);
-                setUsers(response.data)
+                const listUsers = response.data;
+                listUsers.splice(0,1);
+                console.log(listUsers);
+                setUsers(listUsers)
             })
             .catch((error) => console.log(error));
     }
@@ -44,6 +46,7 @@ function ListUsers() {
                         <tr>
                             <th>id</th>
                             <th>Username</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>

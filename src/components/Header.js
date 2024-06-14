@@ -6,6 +6,7 @@ function Header() {
     // const authContext = useContext(AuthContext);
     const authContext = useAuth();
     const isAuthenticated = authContext.isAuthenticated;
+    const username = authContext.username;
     
     function logout() {
         authContext.logout();
@@ -19,7 +20,7 @@ function Header() {
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav">
                                 <li className="nav-item fs-5">
-                                    {isAuthenticated && <Link className="nav-link" to="/dashboard/admin">Dashboard</Link>}
+                                    {isAuthenticated && <Link className="nav-link" to={`/dashboard/${username}`}>Dashboard</Link>}
                                 </li>
                             </ul>
                         </div>

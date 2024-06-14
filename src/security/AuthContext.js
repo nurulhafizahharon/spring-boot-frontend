@@ -14,6 +14,7 @@ function AuthProvider({children}) {
     // Put some state in the context
     const [isAuthenticated, setAuthenticated] = useState(false);
     const [token, setToken] = useState(null);
+    const [username, setUsername] = useState(null);
 
     async function login(username, password) {
         try {
@@ -21,6 +22,7 @@ function AuthProvider({children}) {
             if(response.status === 200) {
                 const jwtToken = "Bearer " + response.data.token;
                 setAuthenticated(true);
+                setUsername(username);
                 setToken(jwtToken);
 
                 apiClient.interceptors.request.use((config) => {
@@ -67,11 +69,12 @@ function AuthProvider({children}) {
 
     function logout() {
         setAuthenticated(false);
+        setUsername(null);
         setToken(null);
     }
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, login, logout, register, token}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout, register, token, username}}>
             {children}
         </AuthContext.Provider>
     )
